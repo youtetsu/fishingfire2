@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>漁火の会実行委員会</title>
+
+  <!-- Google Fonts: Noto Serif JP for 明朝体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a2e0b1f4f8.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary-color: #00d1b2;
+      --secondary-color: #f0f0f0;
+      --bg-overlay: rgba(10, 10, 35, 0.6);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --border-radius: 12px;
+      --transition-speed: 0.3s;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: #0a0a23;
+      color: var(--secondary-color);
+      line-height: 1.8;
+      transition: background var(--transition-speed), color var(--transition-speed);
+    }
+    /* Parallax hero */
+    #hero { position: relative; height: 100vh; overflow: hidden; }
+    #hero .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('static/images/isaribi.png') center/cover no-repeat;
+      z-index: -2;
+    }
+    #hero .overlay {
+      background-color: var(--bg-overlay);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      height: 100%;
+    }
+    #hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 1s ease-out;
+    }
+    #hero p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+      animation: fadeIn 1s 0.5s ease-out;
+    }
+    .btn-cta {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background: var(--primary-color);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: transform var(--transition-speed);
+      color: #fff;
+      font-weight: 500;
+    }
+    .btn-cta:hover { transform: scale(1.05); }
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background-color: rgba(10,10,35,0.8);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    nav .logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    nav ul { display: flex; gap: 1rem; list-style: none; }
+    nav a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-speed);
+      font-family: 'Noto Serif JP', serif;
+    }
+    nav a:hover { color: var(--primary-color); }
+    /* Sections */
+    section { position: relative; padding: 4rem 2rem; overflow: hidden; }
+    .section-content {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      backdrop-filter: blur(5px);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      border-radius: 2px;
+    }
+    .icon { margin-right: 0.5rem; color: var(--primary-color); }
+    /* SVG separator */
+    .separator { display: block; width: 100%; height: 60px; }
+    /* Fade in on view */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .in-view { opacity:1; transform: translateY(0); }
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top:0;
+      left:1rem;
+      width:4px;
+      height:100%;
+      background: var(--primary-color);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -0.4rem;
+      top: 0.2rem;
+      width: 12px;
+      height:12px;
+      background: var(--primary-color);
+      border-radius:50%;
+    }
+    /* Carousel */
+    .carousel { display: flex; overflow-x: auto; gap:1rem; scroll-snap-type: x mandatory; }
+    .carousel img { flex-shrink:0; width:100%; max-width:300px; border-radius: var(--border-radius); scroll-snap-align: center; }
+    /* Schedule Table Styling */
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .schedule-table th,
+    .schedule-table td {
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.8rem;
+      text-align: center;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .schedule-table th {
+      background: rgba(0,209,178,0.2);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .workshops-grid {
+     display: grid;
+　　  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+     gap: 1.5rem;
+　　  margin-top: 2rem;
+　　　}
+　　　.workshop-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+　　   border-radius: var(--border-radius);
+      text-align: center;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+　　　}
+　　　.workshop-card img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+　　　}
+　　　.workshop-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+　　　}
+　　　.workshop-card p {
+      font-size: 0.95rem;
+      color: var(--secondary-color); 
+      opacity: 0.9;
+　　　}
+
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">漁火の会</div>
+    <ul>
+      <li><a href="#heli">Top</a></li>
+      <li><a href="#about">組織紹介</a></li>
+      <li><a href="#projects">活動</a></li>
+      <li><a href="#news">お知らせ</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="parallax-bg"></div>
+    <div class="overlay">
+      <h1>「市川を漁火に、他校との交流を」</h1>
+      <p>2025年3月設立 | 活動地域: 市川中学・高等学校</p>
+      <button class="btn-cta" onclick="window.location='#news'">お知らせを見る</button>
+    </div>
+  </section>
+
+  <svg class="separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60"><path d="M0,0 C600,100 600,-100 1200,0 L1200,60 L0,60 Z" fill="var(--card-bg)"/></svg>
+
+  <section id="about">
+    <div class="section-content fade-in">
+      <h2><i class="fas fa-users icon"></i>組織紹介</h2>
+      <p><strong>設立年：</strong>2025年3月</p>
+      <p><strong>活動理念：</strong>他校との交流を深めるべく、漁火として市川と他校の橋渡し役を目指す</p>
+      <p><strong>活動分野：</strong>学生同士の交流・サポート</p>
+      <p><strong>活動地域：</strong>市川中学・高等学校</p>
+      <p><strong>所属人数：</strong>10人（有志の市川生）</p>
+    </div>
+  </section>
+
+  <svg class="separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60"><path d="M0,60 C600,-40 600,140 1200,60 L1200,0 L0,0 Z" fill="var(--card-bg)"/></svg>
+
+  <section id="projects">
+    <div class="section-content fade-in">
+      <h2><i class="fas fa-lightbulb icon"></i>主な活動</h2>
+      <div class="timeline">
+        <div class="timeline-item"><strong>2025/05/12</strong> ：ミニ漁火の会　第１回発表者向け説明会</div>
+        <div class="timeline-item"><strong>2025/06/21</strong> ：ミニ漁火の会　開催予定</div>
+        <div class="timeline-item"><strong>2025/09</strong> ：漁火の会2025　開催予定</div>
+      </div>
+      <div class="carousel">
+        <img src="event1.jpg" alt="活動写真1">
+        <img src="event2.jpg" alt="活動写真2">
+        <img src="event3.jpg" alt="活動写真3">
+      </div>
+    </div>
+  </section>
+
+  <svg class="separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60"><path d="M0,0 C600,100 600,-100 1200,0 L1200,60 L0,60 Z" fill="var(--card-bg)"/></svg>
+
+  <section id="workshops">
+    <div class="section-content fade-in">
+      <h2><i class="fas fa-chalkboard-teacher icon"></i>漁火の会ワークショップ内容(一例)</h2>
+      <div class="workshops-grid">
+        <div class="workshop-card">
+          <img src="static/images/workshop1.png" alt="ワークショップ1">
+          <h3>リチウムイオン電池の未来と限界</h3>
+          <p>私たちの生活を支えるリチウムイオン電池。その進化の最前線と、資源・安全性・環境面から見た課題について一緒に考えます。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop2.png" alt="ワークショップ2">
+          <h3>量子コンピュータは何を変えるのか？</h3>
+          <p>圧倒的な計算力をもつ量子コンピュータ。その仕組みと、社会や産業にもたらす変革の可能性を一緒に探ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop3.png" alt="ワークショップ3">
+          <h3>都市におけるスマート農業の可能性</h3>
+          <p>都市空間を活用したスマート農業とは？AIやIoTを駆使した持続可能な食料生産の未来像について一緒に考えます</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop4.png" alt="ワークショップ4">
+          <h3>メタバースと人間のアイデンティティ形成</h3>
+          <p>バーチャル空間での生活が当たり前になる未来。メタバースが私たちの自己認識に与える影響を考察します。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop5.png" alt="ワークショップ5">
+          <h3>ワークショップ5</h3>
+          <p>ワークショップ5の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop6.png" alt="ワークショップ6">
+          <h3>ワークショップ6</h3>
+          <p>ワークショップ6の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop7.png" alt="ワークショップ7">
+          <h3>ワークショップ7</h3>
+          <p>ワークショップ7の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop8.png" alt="ワークショップ8">
+          <h3>ワークショップ8</h3>
+          <p>ワークショップ8の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop9.png" alt="ワークショップ9">
+          <h3>ワークショップ9</h3>
+          <p>ワークショップ9の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">          
+          <img src="static/images/workshop10.png" alt="ワークショップ10">
+          <h3>ワークショップ10</h3>
+          <p>ワークショップ10の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop11.png" alt="ワークショップ11">
+          <h3>ワークショップ11</h3>
+          <p>ワークショップ11の内容説明が入ります。</p>
+        </div>
+        <div class="workshop-card">
+          <img src="static/images/workshop12.png" alt="ワークショップ12">
+          <h3>ワークショップ12</h3>
+          <p>ワークショップ12の内容説明が入ります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60"><path d="M0,60 C600,-40 600,140 1200,60 L1200,0 L0,0 Z" fill="var(--card-bg)"/></svg>
+
+  <section id="schedule">
+    <div class="section-content fade-in">
+      <h2><i class="fas fa-clock icon"></i>漁火の会当日スケジュール</h2>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>時間</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>9:00</td><td>受付開始</td></tr>
+          <tr><td>9:45〜10:00</td><td>開会式</td></tr>
+          <tr><td>10:20〜12:10</td><td>企画①</td></tr>
+          <tr><td>12:10〜13:00</td><td>お昼休憩</td></tr>
+          <tr><td>13:00〜14:50</td><td>企画②</td></tr>
+          <tr><td>15:10〜17:00</td><td>企画③</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <svg class="separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60"><path d="M0,0 C600,100 600,-100 1200,0 L1200,60 L0,60 Z" fill="var(--card-bg)"/></svg>
+
+  <section id="news">
+    <div class="section-content fade-in">
+      <h2><i class="fas fa-newspaper icon"></i>ニュース・お知らせ</h2>
+      <p><strong>イベント告知：</strong>ミニ漁火の会、6/21実施予定！参加者募集中。奮ってご応募ください！</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 漁火の会実行委員会
+  </footer>
+
+  <script>
+    // IntersectionObserver for fade-in
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
