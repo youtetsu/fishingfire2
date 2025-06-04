@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ミニ漁火の会</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-image: url('https://source.unsplash.com/1600x600/?sea,night'); /* 川や海のイメージ画像 */
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    nav {
+      background-color: #002b36;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      background-color: #002b36;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ミニ漁火の会</h1>
+    <p>海とともに、心を灯すひととき</p>
+  </header>
+
+  <nav>
+    <a href="#about">ご紹介</a>
+    <a href="#gallery">写真</a>
+    <a href="#news">お知らせ</a>
+  </nav>
+
+  <section id="about" class="fade-in">
+    <h2>ご紹介</h2>
+    <p>
+      ミニ漁火の会は、地域の文化を大切にしながら、海や人とのつながりを楽しむ小さな集いです。
+      ささやかな灯りとともに、心安らぐ時間を過ごします。
+    </p>
+  </section>
+
+  <section id="gallery" class="fade-in">
+    <h2>写真ギャラリー</h2>
+    <img src="https://source.unsplash.com/800x400/?fishing,boat" alt="海の風景" style="width:100%; margin-bottom:20px;">
+    <img src="https://source.unsplash.com/800x400/?japan,sea" alt="和風の海" style="width:100%;">
+  </section>
+
+  <section id="news" class="fade-in">
+    <h2>お知らせ</h2>
+    <ul>
+      <li>2025年7月20日：次回のミニ集いを予定しています。</li>
+      <li>2025年6月1日：本ホームページを開設しました。</li>
+    </ul>
+  </section>
+
+  <footer>
+    &copy; 2025 ミニ漁火の会. All rights reserved.
+  </footer>
+
+  <script>
+    // IntersectionObserver for fade-in
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  </script>
+
+</body>
+</html>
